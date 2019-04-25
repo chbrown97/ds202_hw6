@@ -1,0 +1,28 @@
+---
+title: 'Homework #6'
+author: "Your Name"
+date: "4/16/2019"
+output: html_document
+---
+
+```{r}
+library(readxl)
+library(dplyr)
+library(ggplot2)
+
+df <- read_excel('C:/Users/brown/ds202_hw6/BestInShow.xlsx', sheet='Best in show full sheet')
+
+#Select the needed columns from the original data set
+filtered <- df[,c("Best in show?", "largest value", "160", "X__6", "X__14", "X__24")]
+
+#Continue cleaning the data by removing the first three rows (they contain useless info)
+clean <- filtered[-c(1:3),]
+
+#Continue cleaning by assigning better column names
+colnames(clean) <- c("Breed", "Category", "Popularity", "Intelligence", "Score", "Height")
+
+clean %>% ggplot(aes(x=Score, y=Popularity, color=Category)) + geom_point() + ggtitle("Best in Show")
+
+# Did not finish
+# Next, I would have averaged the Intelligence and turned it into a factor with two levels. Then, I would have averaged the height and turned the variable into a factor with three levels. I would set shape=Intelligence and size=Height and include it in the ggplot. Lastly, I would add labels to all the points for the breed.
+```
